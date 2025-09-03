@@ -3,161 +3,363 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Siddharth Vetrivel</title>
+    <title>sid</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
             font-family: 'Courier New', monospace;
-            max-width: 700px;
-            margin: 40px auto;
-            padding: 0 20px;
-            line-height: 1.6;
             background: #fafafa;
             color: #333;
+            line-height: 1.8;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 100px 20px;
         }
 
         h1 {
-            font-size: 24px;
+            font-size: 28px;
             font-weight: normal;
-            margin-bottom: 8px;
+            margin-bottom: 60px;
+            letter-spacing: -1px;
         }
 
-        h2 {
-            font-size: 18px;
-            font-weight: normal;
-            margin: 40px 0 16px 0;
-            color: #555;
-        }
-
-        h3 {
+        .main-text {
             font-size: 16px;
-            font-weight: normal;
-            margin: 24px 0 8px 0;
+            margin-bottom: 60px;
         }
 
-        p {
-            margin-bottom: 16px;
-        }
-
-        a {
+        .main-text a {
             color: #333;
             text-decoration: underline;
+            cursor: pointer;
+            transition: background 0.2s ease;
         }
 
-        a:hover {
-            background: #eee;
-        }
-
-        ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        li {
-            margin-bottom: 8px;
-            padding-left: 12px;
-            border-left: 1px solid #ddd;
+        .main-text a:hover {
+            background: #f0f0f0;
         }
 
         .contact {
-            margin-top: 40px;
+            margin-top: 80px;
             padding-top: 20px;
             border-top: 1px solid #ddd;
+            text-align: center;
+            font-size: 14px;
         }
 
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-            gap: 16px;
+        .contact a {
+            color: #666;
+            text-decoration: underline;
+            margin: 0 8px;
+        }
+
+        .contact a:hover {
+            color: #333;
+            background: #f0f0f0;
+        }
+
+        /* Section Pages */
+        .section-page {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #fafafa;
+            z-index: 1000;
+            overflow-y: auto;
+        }
+
+        .section-page.active {
+            display: block;
+        }
+
+        .section-header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(250, 250, 250, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            border-bottom: 1px solid #ddd;
+            z-index: 1001;
+        }
+
+        .section-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .back-btn {
+            background: none;
+            border: none;
+            font-family: inherit;
+            font-size: 14px;
+            color: #666;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+        .back-btn:hover {
+            color: #333;
+            background: #f0f0f0;
+        }
+
+        .section-title {
+            font-size: 16px;
+            color: #333;
+        }
+
+        .section-content {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 100px 20px 60px 20px;
+        }
+
+        .item {
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .item:last-child {
+            border-bottom: none;
+        }
+
+        .item-title {
+            font-size: 16px;
+            margin-bottom: 8px;
+            font-weight: normal;
+        }
+
+        .item-desc {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 12px;
+        }
+
+        .item-meta {
+            font-size: 12px;
+            color: #999;
+        }
+
+        /* Music widget */
+        .music-widget {
+            background: #f8f8f8;
+            border: 1px solid #e0e0e0;
+            padding: 20px;
             margin: 20px 0;
         }
 
-        .photo-box {
-            aspect-ratio: 4/3;
-            border: 1px dashed #ccc;
+        .now-playing {
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            justify-content: center;
-            font-size: 12px;
-            color: #888;
-            cursor: pointer;
+            margin-bottom: 12px;
         }
 
-        .photo-box:hover {
-            border-color: #999;
+        .track-info {
+            flex: 1;
+        }
+
+        .track-name {
+            font-weight: bold;
+            margin-bottom: 4px;
+            font-size: 14px;
+        }
+
+        .artist-name {
+            color: #666;
+            font-size: 13px;
+        }
+
+        .music-indicator {
+            font-size: 12px;
+            color: #999;
+        }
+
+        .music-indicator.playing {
+            color: #333;
+        }
+
+        .connect-btn {
+            background: none;
+            border: 1px solid #ddd;
+            color: #666;
+            padding: 6px 12px;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 12px;
+        }
+
+        .connect-btn:hover {
+            background: #f0f0f0;
         }
 
         @media (max-width: 600px) {
-            .gallery-grid {
-                grid-template-columns: repeat(2, 1fr);
+            .container, .section-content {
+                padding-left: 16px;
+                padding-right: 16px;
+            }
+            
+            h1 {
+                font-size: 24px;
+            }
+
+            .main-text {
+                font-size: 15px;
             }
         }
     </style>
 </head>
 <body>
-    <h1>Siddharth Vetrivel</h1>
-    <p>sid.vetrivel@princeton.edu | Austin, Texas</p>
+    <!-- Main Page -->
+    <div id="main-page">
+        <div class="container">
+            <h1>sid vetrivel</h1>
+            
+            <div class="main-text">
+                I'm <a onclick="showSection('learning')">learning</a> more about computer architecture and chip verification. When I'm not debugging hardware, I'm <a onclick="showSection('capturing')">capturing</a> my experiences on both film and digital. I'm always <a onclick="showSection('remembering')">remembering</a> media that shapes how I see the world.
+            </div>
 
-    <h2>About</h2>
-    <p>I'm studying Electrical & Computer Engineering at Princeton with a focus on computer architecture and VLSI design. Currently working on verification for cache-coherent NoCs at Baya Systems and researching scalable verification methodologies for manycore architectures in Prof. Wentzlaff's group. Previously interned at Intel on AI accelerator verification.</p>
-
-    <h2>Photos</h2>
-    <div class="gallery-grid">
-        <div class="photo-box">austin food</div>
-        <div class="photo-box">princeton</div>
-        <div class="photo-box">travels</div>
-        <div class="photo-box">architecture</div>
-        <div class="photo-box">sunrise shots</div>
-        <div class="photo-box">random stuff</div>
+            <div class="contact">
+                <a href="mailto:sid.vetrivel@princeton.edu">email</a>
+                <a href="https://www.linkedin.com/in/sidvetrivel/">linkedin</a>
+                <a href="tel:737-932-3040">call</a>
+            </div>
+        </div>
     </div>
 
-    <h2>Currently</h2>
-    <h3>Reading</h3>
-    <ul>
-        <li>add your books here</li>
-        <li>research papers</li>
-        <li>whatever you're into</li>
-    </ul>
-
-    <h3>Listening To</h3>
-    <ul>
-        <li>favorite artists</li>
-        <li>recent discoveries</li>
-        <li>playlists</li>
-    </ul>
-
-    <h3>Watching</h3>
-    <ul>
-        <li>current shows</li>
-        <li>movies</li>
-        <li>documentaries</li>
-    </ul>
-
-    <h2>Random Favorites</h2>
-    <ul>
-        <li>best tacos in austin</li>
-        <li>go-to coffee spots</li>
-        <li>weekend activities</li>
-        <li>side projects</li>
-        <li>things you're learning</li>
-        <li>games you play</li>
-    </ul>
-
-    <h2>Projects & Stuff</h2>
-    <p>Built a matrix multiplication accelerator for OpenPiton, worked on RISC-V verification suites, designed some processors. The usual computer engineering things. Co-founded a nonprofit that helped 700+ students get access to technology.</p>
-
-    <div class="contact">
-        <a href="mailto:sid.vetrivel@princeton.edu">email</a> | 
-        <a href="https://www.linkedin.com/in/siddharth-vetrivel">linkedin</a> | 
-        <a href="https://github.com/yourusername">github</a> | 
-        <a href="tel:737-932-3040">call</a>
+    <!-- Learning Section -->
+    <div id="learning-page" class="section-page">
+        <div class="section-header">
+            <div class="section-nav">
+                <button class="back-btn" onclick="showMain()">← back</button>
+                <div class="section-title">learning</div>
+                <div></div>
+            </div>
+        </div>
+        <div class="section-content">
+            <div class="item">
+                <div class="item-title">cache-coherent networks</div>
+                <div class="item-desc">Currently at Baya Systems, working on verification for NoCs that keep thousands of processor cores from losing their minds when they try to talk to each other.</div>
+                <div class="item-meta">present</div>
+            </div>
+            <div class="item">
+                <div class="item-title">manycore verification</div>
+                <div class="item-desc">Research with Prof. Wentzlaff's group at Princeton. Developing scalable methodologies to verify that massively parallel architectures actually do what they're supposed to.</div>
+                <div class="item-meta">present</div>
+            </div>
+            <div class="item">
+                <div class="item-title">AI accelerator verification</div>
+                <div class="item-desc">Summer at Intel, diving deep into verification methodologies for neural network hardware. Learned that hardware is just frozen software, and both are frozen thoughts.</div>
+                <div class="item-meta">past</div>
+            </div>
+            <div class="item">
+                <div class="item-title">matrix multiplication accelerator</div>
+                <div class="item-desc">Built custom silicon for OpenPiton that thinks in linear algebra. There's something beautiful about hardware that speaks the language of mathematics directly.</div>
+                <div class="item-meta">past</div>
+            </div>
+            <div class="item">
+                <div class="item-title">what's next</div>
+                <div class="item-desc">The intersection of hardware design and human experience. Not sure what form it'll take yet, but it'll involve both precision and poetry.</div>
+                <div class="item-meta">future</div>
+            </div>
+        </div>
     </div>
 
-    <script>
-        document.querySelectorAll('.photo-box').forEach(box => {
-            box.addEventListener('click', () => {
-                alert('Replace with your actual photos!');
-            });
-        });
-    </script>
+    <!-- Capturing Section -->
+    <div id="capturing-page" class="section-page">
+        <div class="section-header">
+            <div class="section-nav">
+                <button class="back-btn" onclick="showMain()">← back</button>
+                <div class="section-title">capturing</div>
+                <div></div>
+            </div>
+        </div>
+        <div class="section-content">
+            <div class="item">
+                <div class="item-title">austin mornings</div>
+                <div class="item-desc">Golden hour chronicles of a city that's still figuring itself out. Coffee steam, breakfast tacos, and the way light hits limestone differently here than anywhere else.</div>
+                <div class="item-meta">ongoing series</div>
+            </div>
+            <div class="item">
+                <div class="item-title">architecture + lines</div>
+                <div class="item-desc">The geometry of spaces we inhabit. How buildings frame sky, how shadows tell time, how the same structure can feel completely different at 7am versus 7pm.</div>
+                <div class="item-meta">photography</div>
+            </div>
+            <div class="item">
+                <div class="item-title">street experiments</div>
+                <div class="item-desc">The poetry that happens between planned shots. Catching Austin in its unguarded moments, when it's just being itself without trying.</div>
+                <div class="item-meta">mixed media</div>
+            </div>
+            <div class="item">
+                <div class="item-title">princeton campus</div>
+                <div class="item-desc">Four years of seasons cycling through gothic revival architecture. Academic pressure and beauty coexisting in the same frame.</div>
+                <div class="item-meta">film + digital</div>
+            </div>
+            <div class="item">
+                <div class="item-title">travel fragments</div>
+                <div class="item-desc">Collected moments from places that changed how I see. Not tourist shots, but the quiet details that stick with you long after you leave.</div>
+                <div class="item-meta">ongoing</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Remembering Section -->
+    <div id="remembering-page" class="section-page">
+        <div class="section-header">
+            <div class="section-nav">
+                <button class="back-btn" onclick="showMain()">← back</button>
+                <div class="section-title">remembering</div>
+                <div></div>
+            </div>
+        </div>
+        <div class="section-content">
+            <div class="item">
+                <div class="item-title">current soundtrack</div>
+                <div class="music-widget">
+                    <div id="music-content">
+                        <div class="now-playing">
+                            <div class="track-info">
+                                <div class="track-name">your music, live</div>
+                                <div class="artist-name">waiting to connect</div>
+                            </div>
+                            <div class="music-indicator">♪</div>
+                        </div>
+                    </div>
+                    <button class="connect-btn" onclick="loadMusic()">connect last.fm</button>
+                </div>
+            </div>
+            <div class="item">
+                <div class="item-title">books shaping me</div>
+                <div class="item-desc">The ones I keep returning to, that change meaning as I change. Currently working through technical papers on verification theory and whatever novel makes me forget I'm an engineer for a while.</div>
+                <div class="item-meta">evolving list</div>
+            </div>
+            <div class="item">
+                <div class="item-title">films that stick</div>
+                <div class="item-desc">Movies that taught me how to see, how to frame a story, how light can carry emotion. The ones that make me want to pick up a camera and try to capture something true.</div>
+                <div class="item-meta">personal canon</div>
+            </div>
+            <div class="item">
+                <div class="item-title">austin favorites</div>
+                <div class="item-desc">The coffee shops with good light for reading, the taco trucks locals actually go to, the spots where the city reveals itself when you're patient enough to wait.</div>
+                <div class="item-meta">insider knowledge</div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
